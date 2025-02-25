@@ -1,0 +1,2 @@
+C:/Users/labinf1.pasto/Documents/FlutterProjects/stream_controller/android/app/.cxx/Debug/4s2re2p6/x86/CMakeFiles/edit_cache.dir
+C:/Users/labinf1.pasto/Documents/FlutterProjects/stream_controller/android/app/.cxx/Debug/4s2re2p6/x86/CMakeFiles/rebuild_cache.dir

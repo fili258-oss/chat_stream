@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/counter': (context) => CounterScreen(),
         '/notification': (context) => NotificationScreen(),
+        '/chat': (context) => NotificationScreen(),
       },
     );
   }
@@ -52,6 +53,12 @@ class MenuScreen extends StatelessWidget {
                 Navigator.pushNamed(context, '/notification');
               },
               child: Text('Example notification'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/notification');
+              },
+              child: Text('Chat in live'),
             ),
           ],
         ),

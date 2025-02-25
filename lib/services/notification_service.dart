@@ -2,8 +2,7 @@ import 'dart:async';
 
 class NotificationService {
   // Crear un Broadcast StreamController
-  final StreamController<int> _notificationController =
-      StreamController<int>.broadcast();
+  final StreamController<int> _notificationController = StreamController<int>.broadcast();
 
   // Método para obtener el Stream
   Stream<int> get notificationStream => _notificationController.stream;
