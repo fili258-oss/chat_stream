@@ -1,7 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-//import 'package:stream_controller/chat/components/notification_badge.dart';
+import 'package:stream_controller/chat/components/messages_list.dart';
+import 'package:stream_controller/chat/components/notification_badge.dart';
 import 'package:stream_controller/services/message_service.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -12,52 +12,56 @@ class ChatScreen extends StatefulWidget {
 }
 
 class _ChatScreenState extends State<ChatScreen> {
-
+  final TextEditingController _textController = TextEditingController();
   final MessageService _messageService = MessageService();
-  int _counter = 0;
 
-    @override
+  @override
   void initState() {
     super.initState();
 
-    // Simular la llegada de notificaciones cada 3 segundos
-    Timer.periodic(Duration(seconds: 3), (timer) {
-      _counter++;
-      _messageService
-          .addMessage(_counter); // Emitir nueva notificación
+    // Simular la llegada de mensajes cada 5 segundos
+    Timer.periodic(const Duration(seconds: 5), (timer) { 
+      _messageService.addMessage("Mensaje automático ${DateTime.now().second}");
     });
   }
 
   @override
   void dispose() {
-    // Cerrar el servicio cuando el widget se elimina
     _messageService.dispose();
     super.dispose();
   }
-  
 
   @override
   Widget build(BuildContext context) {
-        return Scaffold(
+    return Scaffold(
       appBar: AppBar(
-        title: Text('Chat en tiempo real'),
+        title: const Text('Chat en tiempo real'),
         actions: [
-          // Widget 1: Contador de notificaciones en la barra de navegación
-          //NotificationBadge(notificationService: _notificationService),
+          // Widget 1: Contador de mensajes en la barra de navegación
+          NotificationBadge(messageService: _messageService),
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Notificaciones recibidas:',
-              style: TextStyle(fontSize: 20),
+
+      body: Column(
+        children: [
+          const Text('Mensajes recibidos:', style: TextStyle(fontSize: 20)),
+          MessagesList(messageService: _messageService),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: TextField(
+              controller: _textController,
+              decoration: const InputDecoration(
+                hintText: 'Escribe un mensaje...',                
+              ),
+              onSubmitted: (value) {
+                if (value.isNotEmpty) {
+                  _messageService.addMessage(value);
+                  _textController.clear();
+                }
+              },
             ),
-            // Widget 2: Lista de notificaciones
-            //NotificationList(notificationService: _notificationService),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

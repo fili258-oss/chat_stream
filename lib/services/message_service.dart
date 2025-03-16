@@ -1,19 +1,16 @@
 import 'dart:async';
 
 class MessageService {
-  // Crear un Broadcast StreamController
-  final StreamController<int> _messageController = StreamController<int>.broadcast();
-  
+  final StreamController<List<String>> _messageController = StreamController<List<String>>.broadcast();
+  final List<String> _messages = []; // Lista para almacenar mensajes
 
-  // Método para obtener el Stream
-  Stream<int> get notificationStream => _messageController.stream;
+  Stream<List<String>> get messagesStream => _messageController.stream;
 
-  // Método para agregar nuevas notificaciones
-  void addMessage(int count) {
-    _messageController.add(count);
+  void addMessage(String message) {
+    _messages.add(message); // Agregar nuevo mensaje a la lista
+    _messageController.add(List.from(_messages)); // Emitir la lista completa
   }
 
-  // Cerrar el StreamController cuando ya no sea necesario
   void dispose() {
     _messageController.close();
   }

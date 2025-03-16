@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:stream_controller/screens/chat/chat_screen.dart';
 import 'package:stream_controller/screens/counter_screen.dart';
 import 'package:stream_controller/screens/notification_screen.dart';
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/counter': (context) => CounterScreen(),
         '/notification': (context) => NotificationScreen(),
-        '/chat': (context) => NotificationScreen(),
+        '/chat': (context) => ChatScreen(),
       },
     );
   }
@@ -56,7 +57,7 @@ class MenuScreen extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/notification');
+                Navigator.pushNamed(context, '/chat');
               },
               child: Text('Chat in live'),
             ),
